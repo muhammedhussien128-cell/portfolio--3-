@@ -1,7 +1,7 @@
 /* ============================================
-    MUHAMMED HUSSEIN PORTFOLIO - JAVASCRIPT
-    ENHANCED WITH DYNAMIC PROJECT VISUALS
-    ============================================ */
+     MUHAMMED HUSSEIN PORTFOLIO - JAVASCRIPT
+     ENHANCED WITH DYNAMIC PROJECT VISUALS
+     ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const projects = [
         {
             title: "Sales Data Analysis Dashboard",
-            description: "Analyzed real sales data using Microsoft Excel to identify trends and performance gaps. Identified top-selling products and most profitable customers to guide business strategy and boost revenue.",
+            description: "Analyzed real sales data using Microsoft Excel to identify trends and performance gaps. Identified top-selling products and most profitable customers to guide business strategy.",
             tools: ["Excel", "Pivot Tables", "Charts", "Dashboards"],
             file: "files/sales_dashboard.xlsx",
             icon: "fa-chart-bar",
-            color1: "#3b82f6",
-            color2: "#60a5fa",
+            color1: "#3d7ce3",
+            color2: "#4a95ff",
             inProgress: false
         },
         {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tools: ["Excel", "Pivot Tables", "HR Metrics", "Charts"],
             file: "files/hr_analytics_dashboard.xlsx",
             icon: "fa-users",
-            color1: "#10b981",
+            color1: "#1a7f5c",
             color2: "#34d399",
             inProgress: false
         },
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
             tools: ["Excel", "COGS Analysis", "Inventory Formulas", "Charts"],
             file: "files/inventory_tracker.xlsx",
             icon: "fa-warehouse",
-            color1: "#f59e0b",
-            color2: "#fbbf24",
+            color1: "#b85900",
+            color2: "#d97706",
             inProgress: true
         },
         {
@@ -45,17 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
             tools: ["Excel", "Financial Modeling", "Power Query", "Automation"],
             file: "files/financial_reports.xlsx",
             icon: "fa-chart-pie",
-            color1: "#f43f5e",
-            color2: "#fb7185",
+            color1: "#dc2626",
+            color2: "#f87171",
             inProgress: true
         },
         {
             title: "Expense Tracking & Budgeting",
-            description: "Building an expense tracking workbook with budget vs actual analysis, category breakdowns, and spending alerts. Helps identify cost-saving opportunities.",
+            description: "Building an expense tracking workbook with budget vs actual analysis, category breakdowns, and spending alerts. Helps identify cost-saving opportunities and optimize expenses.",
             tools: ["Excel", "Budgeting", "Pivot Tables", "Conditional Formatting"],
             file: "files/expense_tracker.xlsx",
             icon: "fa-wallet",
-            color1: "#8b5cf6",
+            color1: "#7c3aed",
             color2: "#a78bfa",
             inProgress: true
         },
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tools: ["Excel", "VLOOKUP", "Power Query", "Financial Analysis"],
             file: "files/supplier_reconciliation.xlsx",
             icon: "fa-file-invoice-dollar",
-            color1: "#06b6d4",
+            color1: "#0891b2",
             color2: "#22d3ee",
             inProgress: true
         }
@@ -89,12 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
             background: #1e293b;
             color: #f1f5f9;
             padding: 1rem 1.5rem;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 0.9rem;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border-left: 4px solid #2563eb;
+            border-left: 4px solid #0055cc;
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             pointer-events: none;
             white-space: nowrap;
         `;
-        toast.innerHTML = `<i class="fas fa-clock" style="color:#2563eb; font-size:1.1rem;"></i> ${message}`;
+        toast.innerHTML = `<i class="fas fa-clock" style="color:#0055cc; font-size:1.1rem;"></i> ${message}`;
         document.body.appendChild(toast);
 
         requestAnimationFrame(() => {
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const btn = contactForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            btn.style.background = 'linear-gradient(135deg, #1a7f5c, #2ba878)';
 
             setTimeout(() => {
                 btn.innerHTML = originalText;
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ============================================
        CONSOLE WELCOME MESSAGE
        ============================================ */
-    console.log('%c👋 Welcome to Muhammed Hussein\'s Portfolio!', 'font-size: 20px; font-weight: bold; color: #2563eb;');
+    console.log('%c👋 Welcome to Muhammed Hussein\'s Portfolio!', 'font-size: 20px; font-weight: bold; color: #0055cc;');
     console.log('%cProfessional Junior Accountant & Data Analyst | Built with ❤️ using HTML, CSS & Vanilla JS', 'font-size: 12px; color: #64748b;');
 
 });
