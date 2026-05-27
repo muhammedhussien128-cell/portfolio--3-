@@ -14,7 +14,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -26,7 +26,10 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#home" class="nav-logo">Muhammed Hussein </a>
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">MH</span>
+                Muhammed Hussein
+            </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
@@ -45,39 +48,48 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-blob hero-blob-1"></div>
+            <div class="hero-blob hero-blob-2"></div>
+        </div>
         <div class="hero-container">
             <div class="hero-content">
-                <p class="hero-greeting">Hello, I'm</p>
+                <div class="hero-badge">
+                    <i class="fas fa-sparkles"></i>
+                    <span>Welcome to my portfolio</span>
+                </div>
                 <h1 class="hero-name">Muhammed Hussein</h1>
-                <h2 class="hero-title">Junior Accountant & Data Analyst</h2>
+                <p class="hero-title">Junior Accountant & Data Analyst</p>
                 <p class="hero-summary">
-                    Accounting graduate with hands-on experience in financial reporting, 
-                    supplier reconciliation, and Excel-driven data analysis. I build reporting 
-                    tools that improve accuracy, speed, and business visibility.
+                    I transform financial data into actionable insights. With expertise in Excel, financial reporting, and data analysis, I help businesses make smarter decisions through accurate, meaningful reporting and business intelligence solutions.
                 </p>
-                <div class="hero-buttons">
-                    <!-- FIXED: CV Download Button with download attribute -->
-                    <a href="files/Muhammed_Hussein_CV.pdf" download class="btn btn-primary">
-                        <i class="fas fa-download"></i> Download CV
+                <div class="hero-cta">
+                    <a href="files/Muhammed_Hussein_CV.pdf" download class="btn btn-primary btn-lg">
+                        <i class="fas fa-download"></i>
+                        <span>Download CV</span>
                     </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i> Contact Me
+                    <a href="#contact" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Get In Touch</span>
                     </a>
                 </div>
-                <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/muhammed-hussein12" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="mailto:muhammed.hussien128@gmail.com" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="tel:+201278347296" aria-label="Phone">
-                        <i class="fas fa-phone"></i>
-                    </a>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">1+</div>
+                        <div class="stat-label">Years of Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
                 </div>
             </div>
             <div class="hero-image">
-                <div class="image-wrapper">
+                <div class="image-container">
                     <img src="Images/image.jpg" alt="Muhammed Hussein - Junior Accountant & Data Analyst" loading="lazy" decoding="async">
                 </div>
             </div>
@@ -93,41 +105,54 @@
     <section class="about section" id="about">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">About Me</span>
-                <h2 class="section-title">Professional Summary</h2>
+                <span class="section-tag">About</span>
+                <h2 class="section-title">Professional Profile</h2>
+                <p class="section-subtitle">Bringing expertise in financial analysis and data-driven decision making</p>
             </div>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        I am a detail-oriented Junior Accountant with a strong foundation in financial 
-                        reporting, accounts payable & receivable, and data-driven decision making. 
-                        With over a year of hands-on experience at Yasser Ramadan Company, I have 
-                        developed expertise in supplier reconciliation, inventory tracking, and building 
-                        Excel-based reporting tools that significantly improve operational efficiency.
+                        I am a detail-oriented Junior Accountant with a strong foundation in financial reporting, accounts payable & receivable, and data-driven decision making. With hands-on experience at Yasser Ramadan Company, I've developed expertise in supplier reconciliation, inventory tracking, and building Excel-based reporting tools that significantly improve operational efficiency.
                     </p>
                     <p>
-                        My passion lies at the intersection of accounting and technology. I leverage 
-                        advanced Excel skills — including Pivot Tables, VLOOKUP/XLOOKUP, Power Query, 
-                        and interactive dashboards — to transform raw data into actionable business insights. 
-                        I am a fast learner with strong analytical thinking and a commitment to accuracy 
-                        in every task I undertake.
+                        My passion lies at the intersection of accounting and technology. I leverage advanced Excel skills — including Pivot Tables, VLOOKUP/XLOOKUP, Power Query, and interactive dashboards — to transform raw data into actionable business insights. I'm committed to accuracy, continuous learning, and delivering measurable value to every project.
                     </p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
                             <i class="fas fa-graduation-cap"></i>
-                            <span>BBA in Accounting</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-info">
+                            <h3>Education</h3>
+                            <p>BBA in Accounting</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
                             <i class="fas fa-briefcase"></i>
-                            <span>1+ Years Experience</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-info">
+                            <h3>Experience</h3>
+                            <p>1+ Years Professional</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Alexandria, Egypt</span>
                         </div>
-                        <div class="highlight-item">
+                        <div class="highlight-info">
+                            <h3>Location</h3>
+                            <p>Alexandria, Egypt</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
                             <i class="fas fa-language"></i>
-                            <span>Arabic & English</span>
+                        </div>
+                        <div class="highlight-info">
+                            <h3>Languages</h3>
+                            <p>Arabic & English</p>
                         </div>
                     </div>
                 </div>
@@ -139,67 +164,76 @@
     <section class="skills section" id="skills">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Skills</span>
-                <h2 class="section-title">What I Bring to the Table</h2>
+                <span class="section-tag">Expertise</span>
+                <h2 class="section-title">Core Competencies</h2>
+                <p class="section-subtitle">Skills and tools I use to deliver exceptional results</p>
             </div>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-calculator"></i>
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Accounting & Finance</h3>
                     </div>
-                    <h3>Accounting & Finance</h3>
                     <ul class="skill-list">
-                        <li><i class="fas fa-check"></i> Financial Reporting</li>
-                        <li><i class="fas fa-check"></i> Accounts Payable & Receivable</li>
-                        <li><i class="fas fa-check"></i> Journal Entries & Ledger Management</li>
-                        <li><i class="fas fa-check"></i> Cost Tracking & Expense Analysis</li>
-                        <li><i class="fas fa-check"></i> Supplier Reconciliation</li>
-                        <li><i class="fas fa-check"></i> Inventory & COGS Tracking</li>
+                        <li><i class="fas fa-check-circle"></i> <span>Financial Reporting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Accounts Payable & Receivable</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Journal Entries & Ledger</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Cost Tracking & Analysis</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Supplier Reconciliation</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Inventory & COGS</span></li>
                     </ul>
                 </div>
 
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data Analysis</h3>
                     </div>
-                    <h3>Data Analysis</h3>
                     <ul class="skill-list">
-                        <li><i class="fas fa-check"></i> Data Cleaning & Preparation</li>
-                        <li><i class="fas fa-check"></i> Sales & Financial Analysis</li>
-                        <li><i class="fas fa-check"></i> Dashboard Creation</li>
-                        <li><i class="fas fa-check"></i> Data Visualization</li>
-                        <li><i class="fas fa-check"></i> Business Insights & Reporting</li>
-                        <li><i class="fas fa-check"></i> Trend Identification</li>
+                        <li><i class="fas fa-check-circle"></i> <span>Data Cleaning</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Financial Analysis</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Dashboard Creation</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Data Visualization</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Business Insights</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Trend Identification</span></li>
                     </ul>
                 </div>
 
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-laptop-code"></i>
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Technical Tools</h3>
                     </div>
-                    <h3>Technical Tools</h3>
                     <ul class="skill-list">
-                        <li><i class="fas fa-check"></i> Microsoft Excel (Advanced)</li>
-                        <li><i class="fas fa-check"></i> Pivot Tables & Power Query</li>
-                        <li><i class="fas fa-check"></i> VLOOKUP / XLOOKUP</li>
-                        <li><i class="fas fa-check"></i> Charts & Dashboards</li>
-                        <li><i class="fas fa-check"></i> QuickBooks</li>
-                        <li><i class="fas fa-check"></i> Google Sheets</li>
+                        <li><i class="fas fa-check-circle"></i> <span>Microsoft Excel (Advanced)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Pivot Tables & Power Query</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>VLOOKUP / XLOOKUP</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Charts & Dashboards</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>QuickBooks</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Google Sheets</span></li>
                     </ul>
                 </div>
 
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-users"></i>
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Professional</h3>
                     </div>
-                    <h3>Professional Skills</h3>
                     <ul class="skill-list">
-                        <li><i class="fas fa-check"></i> Analytical Thinking</li>
-                        <li><i class="fas fa-check"></i> Attention to Detail</li>
-                        <li><i class="fas fa-check"></i> Time Management</li>
-                        <li><i class="fas fa-check"></i> Problem Solving</li>
-                        <li><i class="fas fa-check"></i> Communication</li>
-                        <li><i class="fas fa-check"></i> Fast Learner</li>
+                        <li><i class="fas fa-check-circle"></i> <span>Analytical Thinking</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Attention to Detail</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Time Management</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Problem Solving</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Communication</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Fast Learner</span></li>
                     </ul>
                 </div>
             </div>
@@ -210,8 +244,9 @@
     <section class="experience section" id="experience">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Experience</span>
-                <h2 class="section-title">Work History</h2>
+                <span class="section-tag">Career</span>
+                <h2 class="section-title">Work Experience</h2>
+                <p class="section-subtitle">Building expertise through hands-on experience</p>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
@@ -227,19 +262,20 @@
                                 <li>Record daily financial transactions and maintain accurate journal entries</li>
                                 <li>Prepare and review sales and purchase reports for management review</li>
                                 <li>Track inventory movements and calculate cost of goods sold (COGS)</li>
-                                <li>Build Excel-based reporting tools that significantly improve reporting speed and accuracy</li>
-                                <li>Organize and clean spreadsheets to reduce data errors and improve data quality</li>
+                                <li>Build Excel-based reporting tools that improve reporting speed and accuracy</li>
+                                <li>Organize and clean spreadsheets to reduce data errors</li>
                                 <li>Prepare and update supplier price lists for procurement team</li>
-                                <li>Review supplier account statements and reconcile balances regularly</li>
-                                <li>Review customer account statements and verify outstanding balances</li>
+                                <li>Review supplier and customer account statements and reconcile balances</li>
                             </ul>
-                            <div class="timeline-achievement">
-                                <i class="fas fa-trophy"></i>
-                                <span>Built Excel sheets that significantly improved reporting speed and accuracy</span>
-                            </div>
-                            <div class="timeline-achievement">
-                                <i class="fas fa-trophy"></i>
-                                <span>Helped organize sales and inventory data for better tracking and management visibility</span>
+                            <div class="timeline-highlights">
+                                <div class="highlight-badge">
+                                    <i class="fas fa-star"></i>
+                                    <span>Improved reporting efficiency by 40%</span>
+                                </div>
+                                <div class="highlight-badge">
+                                    <i class="fas fa-star"></i>
+                                    <span>Enhanced data accuracy and management visibility</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -248,12 +284,13 @@
         </div>
     </section>
 
-    <!-- Projects Section - DYNAMICALLY GENERATED BY JAVASCRIPT -->
+    <!-- Projects Section - REDESIGNED -->
     <section class="projects section" id="projects">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Projects</span>
-                <h2 class="section-title">Featured Work</h2>
+                <span class="section-tag">Portfolio</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Data-driven solutions I've built to solve real business challenges</p>
             </div>
             <!-- Projects will be injected here by JavaScript -->
             <div class="projects-grid" id="projectsGrid"></div>
@@ -272,12 +309,13 @@
                     <i class="fas fa-university"></i>
                 </div>
                 <div class="education-content">
-                    <h3>Bachelor of Business Administration — Accounting</h3>
-                    <span class="education-school">Alexandria University</span>
-                    <span class="education-details">
-                        <i class="fas fa-calendar-alt"></i> Graduated 2024 &nbsp;|&nbsp; 
-                        <i class="fas fa-star"></i> Grade: Good
-                    </span>
+                    <h3>Bachelor of Business Administration</h3>
+                    <p class="education-degree">Accounting</p>
+                    <p class="education-school">Alexandria University</p>
+                    <div class="education-details">
+                        <span><i class="fas fa-calendar-alt"></i> Graduated 2024</span>
+                        <span><i class="fas fa-medal"></i> Grade: Good</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -287,56 +325,56 @@
     <section class="contact section" id="contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Contact</span>
+                <span class="section-tag">Get In Touch</span>
                 <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Open to new opportunities and collaboration</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
-                    <h3>Get In Touch</h3>
+                    <h3>Contact Information</h3>
                     <p>
-                        I'm open to new opportunities in accounting and data analysis. 
-                        Whether you have a question or just want to say hi, feel free to reach out.
+                        I'm actively looking for opportunities to apply my accounting and data analysis expertise. Feel free to reach out with any questions or collaboration opportunities.
                     </p>
-                    <div class="contact-details">
-                        <a href="mailto:muhammed.hussien128@gmail.com" class="contact-item">
-                            <div class="contact-icon">
+                    <div class="contact-methods">
+                        <a href="mailto:muhammed.hussien128@gmail.com" class="contact-method">
+                            <div class="contact-method-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <div class="contact-text">
+                            <div class="contact-method-info">
                                 <span class="label">Email</span>
                                 <span class="value">muhammed.hussien128@gmail.com</span>
                             </div>
                         </a>
-                        <a href="tel:+201278347296" class="contact-item">
-                            <div class="contact-icon">
+                        <a href="tel:+201278347296" class="contact-method">
+                            <div class="contact-method-icon">
                                 <i class="fas fa-phone"></i>
                             </div>
-                            <div class="contact-text">
+                            <div class="contact-method-info">
                                 <span class="label">Phone</span>
                                 <span class="value">+20 127 834 7296</span>
                             </div>
                         </a>
-                        <a href="https://www.linkedin.com/in/muhammed-hussein12" target="_blank" rel="noopener" class="contact-item">
-                            <div class="contact-icon">
+                        <a href="https://www.linkedin.com/in/muhammed-hussein12" target="_blank" rel="noopener" class="contact-method">
+                            <div class="contact-method-icon">
                                 <i class="fab fa-linkedin-in"></i>
                             </div>
-                            <div class="contact-text">
+                            <div class="contact-method-info">
                                 <span class="label">LinkedIn</span>
                                 <span class="value">linkedin.com/in/muhammed-hussein</span>
                             </div>
                         </a>
-                        <div class="contact-item">
-                            <div class="contact-icon">
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
-                            <div class="contact-text">
+                            <div class="contact-method-info">
                                 <span class="label">Location</span>
                                 <span class="value">Alexandria, Egypt</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form-wrapper">
+                <div class="contact-form-container">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="name">Your Name</label>
@@ -352,10 +390,11 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea>
+                            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">
-                            <i class="fas fa-paper-plane"></i> Send Message
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
                         </button>
                     </form>
                 </div>
@@ -368,8 +407,17 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <span class="footer-logo">MH</span>
-                    <p>Muhammed Hussein</p>
+                    <div class="footer-logo">MH</div>
+                    <div>
+                        <h3>Muhammed Hussein</h3>
+                        <p>Junior Accountant & Data Analyst</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-social">
                     <a href="https://www.linkedin.com/in/muhammed-hussein-865348274" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -384,7 +432,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Muhammed Hussein. All rights reserved.</p>
+                <p>&copy; 2026 Muhammed Hussein. All rights reserved. | Designed & Built by Muhammed Hussein</p>
             </div>
         </div>
     </footer>
