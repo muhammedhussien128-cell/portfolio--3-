@@ -1,9 +1,39 @@
 /* ============================================
-     MUHAMMED HUSSEIN PORTFOLIO - JAVASCRIPT
-     ENHANCED WITH DYNAMIC PROJECT VISUALS
-     ============================================ */
+   MUHAMMED HUSSEIN PORTFOLIO - JAVASCRIPT
+   OPTIMIZED FOR PERFORMANCE & SMOOTH ANIMATIONS
+   ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    /* ============================================
+       VIDEO PROJECTS DATA
+       ============================================ */
+    const videoProjects = [
+        {
+            title: "Sales Dashboard Walkthrough",
+            description: "Complete walkthrough of the sales data analysis dashboard, showing real-time insights, KPIs, and performance metrics.",
+            duration: "8:45",
+            category: "Dashboard",
+            thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+            embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        },
+        {
+            title: "Excel Pivot Table Tutorial",
+            description: "Step-by-step tutorial on building advanced pivot tables for financial analysis and data summarization.",
+            duration: "6:30",
+            category: "Excel",
+            thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+            embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        },
+        {
+            title: "Financial Reporting Automation",
+            description: "Learn how to automate financial reports using Excel formulas, Power Query, and dynamic dashboards.",
+            duration: "10:15",
+            category: "Automation",
+            thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+            embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        }
+    ];
 
     /* ============================================
        PROJECTS DATA WITH VISUAL METADATA
@@ -74,12 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ============================================
        TOAST NOTIFICATION
        ============================================ */
-    function showToast(message) {
-        const existing = document.getElementById('coming-soon-toast');
+    function showToast(message, type = 'info') {
+        const existing = document.getElementById('toast-notification');
         if (existing) existing.remove();
 
         const toast = document.createElement('div');
-        toast.id = 'coming-soon-toast';
+        toast.id = 'toast-notification';
         toast.setAttribute('role', 'status');
         toast.style.cssText = `
             position: fixed;
@@ -118,6 +148,108 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => toast.remove(), 300);
         }, 3500);
     }
+
+    /* ============================================
+       GENERATE VIDEO CARDS
+       ============================================ */
+    function generateVideos() {
+        const videosGrid = document.getElementById('videosGrid');
+        if (!videosGrid) return;
+
+        videosGrid.innerHTML = videoProjects.map((video, index) => {
+            return `
+                <div class="video-card fade-in" style="animation-delay: ${index * 0.1}s;">
+                    <div class="video-thumbnail">
+                        <button class="video-play-btn" onclick="openVideoModal('${video.embedUrl}', '${video.title.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="video-content">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                        <div class="video-meta">
+                            <div class="video-meta-item">
+                                <i class="fas fa-play-circle"></i>
+                                <span>${video.duration}</span>
+                            </div>
+                            <div class="video-meta-item">
+                                <i class="fas fa-tag"></i>
+                                <span>${video.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    /* ============================================
+       VIDEO MODAL
+       ============================================ */
+    window.openVideoModal = function(embedUrl, title) {
+        const modal = document.createElement('div');
+        modal.id = 'video-modal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        `;
+        modal.innerHTML = `
+            <div style="position: relative; width: 90%; max-width: 900px; animation: fadeInUp 0.3s ease-out;">
+                <button onclick="document.getElementById('video-modal').remove()" style="
+                    position: absolute;
+                    top: -40px;
+                    right: 0;
+                    background: white;
+                    border: none;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                    transition: all 0.3s ease;
+                    color: #0f172a;
+                ">
+                    <i class="fas fa-times"></i>
+                </button>
+                <iframe 
+                    style="
+                        width: 100%;
+                        aspect-ratio: 16 / 9;
+                        border-radius: 12px;
+                        border: none;
+                        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                    "
+                    src="${embedUrl}?autoplay=1"
+                    title="${title}"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+                document.body.style.overflow = '';
+            }
+        });
+    };
+
+    generateVideos();
 
     /* ============================================
        GENERATE PROJECT CARDS WITH VISUALS
@@ -256,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ============================================
        FADE IN ON SCROLL
        ============================================ */
-    const fadeElements = document.querySelectorAll('.section-header, .skill-card, .project-card, .timeline-item, .education-card, .contact-item, .contact-form-wrapper, .highlight-item');
+    const fadeElements = document.querySelectorAll('.section-header, .skill-card, .project-card, .video-card, .highlight-card, .contact-method');
 
     fadeElements.forEach(el => {
         el.classList.add('fade-in');
