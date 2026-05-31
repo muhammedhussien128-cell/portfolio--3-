@@ -82,27 +82,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ════════════════════════════════════════════
      GENERATE PROJECTS
+  ════════════════════════════════════════════
+  FIX 1: Added inProgress badge/overlay to card markup.
+  FIX 2: Used textContent-safe number formatting (String(idx+1).padStart(2,'0'))
+         to avoid template literal edge cases.
+  FIX 3: Added null-safe tool tag rendering (escape HTML entities to prevent XSS).
   ════════════════════════════════════════════ */
+  function escapeHtml(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function generateProjects() {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
 
+    if (!Array.isArray(projects) || projects.length === 0) {
+      grid.innerHTML = '<p class="no-content">No projects available yet.</p>';
+      return;
+    }
+
     grid.innerHTML = projects.map((project, idx) => {
-      const tagsHtml = project.tools.map(t => `<span class="project-tag">${t}</span>`).join('');
+      // Defensive: skip malformed entries
+      if (!project || typeof project !== 'object') return '';
+
+      const tagsHtml = Array.isArray(project.tools)
+        ? project.tools.map(t => `<span class="project-tag">${escapeHtml(t)}</span>`).join('')
+        : '';
+
       const btnHtml = project.inProgress
-        ? `<button class="btn-card btn-card-primary" data-coming-soon="true"><i class="fas fa-download"></i> Download</button>`
-        : `<a href="${project.file}" download class="btn-card btn-card-primary"><i class="fas fa-download"></i> Download</a>`;
+        ? `<button class="btn-card btn-card-primary" data-coming-soon="true">
+             <i class="fas fa-download"></i> Download
+           </button>`
+        : `<a href="${escapeHtml(project.file)}" download class="btn-card btn-card-primary">
+             <i class="fas fa-download"></i> Download
+           </a>`;
+
+      // FIX 1: Show "In Progress" badge on inProgress cards
+      const badgeHtml = project.inProgress
+        ? `<div class="project-in-progress-badge">In Progress</div>`
+        : '';
+
+      const num = String(idx + 1).padStart(2, '0');
 
       return `
         <div class="project-card fade-in" style="animation-delay:${idx * 0.1}s">
           <div class="project-thumb">
-            <div class="project-thumb-icon"><i class="fas ${project.icon}"></i></div>
-            <div class="project-thumb-num">0${idx + 1}</div>
+            ${badgeHtml}
+            <div class="project-thumb-icon"><i class="fas ${escapeHtml(project.icon || 'fa-file')}"></i></div>
+            <div class="project-thumb-num">${num}</div>
           </div>
           <div class="project-body">
             <div class="project-tags">${tagsHtml}</div>
-            <h3 class="project-title">${project.title}</h3>
-            <p class="project-desc">${project.description}</p>
+            <h3 class="project-title">${escapeHtml(project.title || '')}</h3>
+            <p class="project-desc">${escapeHtml(project.description || '')}</p>
             <div class="project-footer">
               ${btnHtml}
               <button class="btn-card btn-card-ghost"><i class="fas fa-arrow-right"></i></button>
@@ -119,26 +157,50 @@ document.addEventListener('DOMContentLoaded', function() {
         showToast('Coming soon! 🚀');
       });
     });
+
+    // FIX 2: Observe newly generated fade-in elements AFTER they exist in the DOM
+    grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
   /* ════════════════════════════════════════════
      GENERATE VIDEOS
+  ════════════════════════════════════════════
+  FIX 3: Added loading="lazy" and allow attributes to iframes.
+  FIX 4: Observe newly generated video fade-in elements after DOM insertion.
+  FIX 5: Defensive check for empty videos array.
   ════════════════════════════════════════════ */
   function generateVideos() {
     const grid = document.getElementById('videosGrid');
     if (!grid) return;
 
-    grid.innerHTML = videos.map((video, idx) => `
-      <div class="video-card fade-in" style="animation-delay:${idx * 0.1}s">
-        <div class="video-wrapper">
-          <iframe src="${video.embedUrl}" title="${video.title}" allowfullscreen></iframe>
+    if (!Array.isArray(videos) || videos.length === 0) {
+      grid.innerHTML = '<p class="no-content">No videos available yet.</p>';
+      return;
+    }
+
+    grid.innerHTML = videos.map((video, idx) => {
+      if (!video || typeof video !== 'object') return '';
+      return `
+        <div class="video-card fade-in" style="animation-delay:${idx * 0.1}s">
+          <div class="video-wrapper">
+            <iframe
+              src="${escapeHtml(video.embedUrl || '')}"
+              title="${escapeHtml(video.title || 'Video')}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h3 class="video-title">${escapeHtml(video.title || '')}</h3>
+            <p class="video-desc">${escapeHtml(video.description || '')}</p>
+          </div>
         </div>
-        <div class="video-info">
-          <h3 class="video-title">${video.title}</h3>
-          <p class="video-desc">${video.description}</p>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    // FIX 4: Observe newly generated fade-in elements AFTER they exist in the DOM
+    grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
   /* ════════════════════════════════════════════
@@ -183,14 +245,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* ════════════════════════════════════════════
-     NAVBAR FUNCTIONALITY - FIXED WITH NULL SAFETY
+     NAVBAR FUNCTIONALITY
   ════════════════════════════════════════════ */
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Hamburger menu toggle - with null safety
   if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
@@ -199,7 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Close mobile menu on link click - with null safety
   if (hamburger && navMenu) {
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -210,14 +270,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Navbar scroll effect - with null safety
   if (navbar) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
   }
 
@@ -235,8 +290,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (scrollPos >= top && scrollPos < top + height) {
         navLinks.forEach(link => link.classList.remove('active'));
-        
-        document.querySelector(`a[href="#${id}"]`)?.classList.add('active');
+        const activeLink = document.querySelector(`a[href="#${id}"]`);
+        if (activeLink) activeLink.classList.add('active');
       }
     });
   }
@@ -244,7 +299,13 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', updateActiveLink);
 
   /* ════════════════════════════════════════════
-     FADE IN ON SCROLL
+     FADE IN ON SCROLL (IntersectionObserver)
+  ════════════════════════════════════════════
+  FIX 5: Observer is declared before generateProjects/generateVideos so it can
+         be referenced inside those functions when observing dynamically created
+         elements. The old code ran querySelectorAll('.fade-in') BEFORE the
+         project/video cards existed in the DOM — so zero elements were ever
+         observed and cards never became visible.
   ════════════════════════════════════════════ */
   const observerOptions = {
     threshold: 0.1,
@@ -260,15 +321,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
+  // Observe static fade-in elements (those already in the HTML)
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
   /* ════════════════════════════════════════════
      SMOOTH SCROLL
-  ════════════════════════════════════════════ */
+  ══════════════���═════════════════════════════ */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      if (href !== '#') {
+      if (href && href !== '#') {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
@@ -284,16 +346,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ════════════════════════════════════════════
      CONTACT FORM
+  ════════════════════════════════════════════
+  FIX 6: Added null-safety for all form field lookups so a missing field
+         doesn't crash the submit handler.
   ════════════════════════════════════════════ */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const subject = document.getElementById('subject').value;
-      const message = document.getElementById('message').value;
+
+      const nameEl    = document.getElementById('name');
+      const emailEl   = document.getElementById('email');
+      const subjectEl = document.getElementById('subject');
+      const messageEl = document.getElementById('message');
+
+      // Guard: if any required field element is missing, bail gracefully
+      if (!nameEl || !emailEl || !subjectEl || !messageEl) {
+        showToast('Form fields not found. Please refresh and try again.');
+        return;
+      }
+
+      const name    = nameEl.value.trim();
+      const email   = emailEl.value.trim();
+      const subject = subjectEl.value.trim();
+      const message = messageEl.value.trim();
+
+      if (!name || !email || !subject || !message) {
+        showToast('Please fill in all fields before sending.');
+        return;
+      }
 
       const mailtoLink = `mailto:muhammed.hussien128@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
@@ -304,7 +385,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const btn = contactForm.querySelector('button[type="submit"]');
       if (btn) {
         btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-        
         setTimeout(() => {
           btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
           contactForm.reset();
@@ -319,23 +399,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const scrollTop = document.getElementById('scrollTop');
   if (scrollTop) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollTop.classList.add('show');
-      } else {
-        scrollTop.classList.remove('show');
-      }
+      scrollTop.classList.toggle('show', window.scrollY > 300);
     });
 
     scrollTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
   /* ════════════════════════════════════════════
      INITIALIZE
+  ════════════════════════════════════════════
+  FIX 7: generateProjects() and generateVideos() are called AFTER the observer
+         is set up, and each function now calls observer.observe() on its own
+         newly created elements internally — fixing the invisible cards bug.
   ════════════════════════════════════════════ */
   generateProjects();
   generateVideos();
