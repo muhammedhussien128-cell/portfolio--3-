@@ -183,15 +183,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* ════════════════════════════════════════════
-     NAVBAR FUNCTIONALITY - FIXED
+     NAVBAR FUNCTIONALITY - FIXED WITH NULL SAFETY
   ════════════════════════════════════════════ */
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Hamburger menu toggle
-  if (hamburger) {
+  // Hamburger menu toggle - with null safety
+  if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       navMenu.classList.toggle('active');
@@ -199,23 +199,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Close mobile menu on link click
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navMenu.classList.remove('active');
-      document.body.style.overflow = '';
+  // Close mobile menu on link click - with null safety
+  if (hamburger && navMenu) {
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
     });
-  });
+  }
 
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
+  // Navbar scroll effect - with null safety
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  }
 
   /* ════════════════════════════════════════════
      ACTIVE NAV LINK
@@ -298,12 +302,14 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = mailtoLink;
 
       const btn = contactForm.querySelector('button[type="submit"]');
-      btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-      
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-        contactForm.reset();
-      }, 2000);
+      if (btn) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+          contactForm.reset();
+        }, 2000);
+      }
     });
   }
 
