@@ -183,26 +183,27 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* ════════════════════════════════════════════
-     NAVBAR FUNCTIONALITY
+     NAVBAR FUNCTIONALITY - FIXED
   ════════════════════════════════════════════ */
   const navbar = document.getElementById('navbar');
-  const navToggle = document.getElementById('navToggle');
-  const navMobile = document.getElementById('navMobile');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const mobileLinks = document.querySelectorAll('.nav-mobile a');
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-  // Hamburger menu
-  navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('open');
-    navMobile.classList.toggle('open');
-    document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
-  });
+  // Hamburger menu toggle
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+  }
 
   // Close mobile menu on link click
-  [...navLinks, ...mobileLinks].forEach(link => {
+  navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navToggle.classList.remove('open');
-      navMobile.classList.remove('open');
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
       document.body.style.overflow = '';
     });
   });
@@ -230,10 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (scrollPos >= top && scrollPos < top + height) {
         navLinks.forEach(link => link.classList.remove('active'));
-        mobileLinks.forEach(link => link.classList.remove('active'));
         
         document.querySelector(`a[href="#${id}"]`)?.classList.add('active');
-        document.querySelector(`.nav-mobile a[href="#${id}"]`)?.classList.add('active');
       }
     });
   }
@@ -305,6 +304,27 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
         contactForm.reset();
       }, 2000);
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     SCROLL TO TOP BUTTON
+  ════════════════════════════════════════════ */
+  const scrollTop = document.getElementById('scrollTop');
+  if (scrollTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTop.classList.add('show');
+      } else {
+        scrollTop.classList.remove('show');
+      }
+    });
+
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   }
 
