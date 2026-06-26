@@ -50,12 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
       inProgress: true
     },
     {
-      title: "Supplier Reconciliation System",
-      description: "Developing an automated Excel-based reconciliation system to compare supplier statements with internal records.",
-      tools: ["Excel", "VLOOKUP", "Power Query"],
-      file: "files/supplier_reconciliation.xlsx",
-      icon: "fa-file-invoice-dollar",
-      inProgress: true
+      title: "Yasser Ramadan Inventory Management App (اصناف ياسر رمضان)",
+      description: "A mobile business automation application developed using AppSheet to manage inventory and streamline the returns process. It categorizes returns into two main workflows: returns for maintenance and restoration to the customer, and actual finalized returns from customers. It features smart filtering, data tracking, and automated reporting.",
+      tools: ["AppSheet", "Google Sheets", "Google Apps Script"],
+      file: "https://www.appsheet.com/newshortcut/b3d9df53-8f3f-4b7d-acc2-07af1f7ec7c6",
+      icon: "fa-mobile-alt",
+      inProgress: false
     }
   ];
 
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ════════════════════════════════════════════
      SMOOTH SCROLL
-  ══════════════���═════════════════════════════ */
+  ════════════════════════════════════════════ */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
