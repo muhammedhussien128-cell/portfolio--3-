@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "files/sales_dashboard.xlsx",
       icon: "fa-chart-bar",
       inProgress: false,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/sales.png"
     },
     {
       title: "HR Analytics Dashboard",
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "files/hr_analytics_dashboard.xlsx",
       icon: "fa-users",
       inProgress: false,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/hr.png"
     },
     {
       title: "Inventory Tracking Dashboard",
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "files/inventory_tracker.xlsx",
       icon: "fa-warehouse",
       inProgress: true,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/inventory.png"
     },
     {
       title: "Financial Reporting Template",
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "files/financial_reports.xlsx",
       icon: "fa-chart-pie",
       inProgress: true,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/financial.png"
     },
     {
       title: "Expense Tracking & Budgeting",
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "files/expense_tracker.xlsx",
       icon: "fa-wallet",
       inProgress: true,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/expense.png"
     },
     {
       title: "Yasser Ramadan Inventory Management App",
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       file: "https://www.appsheet.com/newshortcut/b3d9df53-8f3f-4b7d-acc2-07af1f7ec7c6",
       icon: "fa-mobile-alt",
       inProgress: false,
-      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
+      image: "Images/mobile.png"
     }
   ];
 
