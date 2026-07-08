@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
       tools: ["Excel", "Pivot Tables", "Charts"],
       file: "files/sales_dashboard.xlsx",
       icon: "fa-chart-bar",
-      inProgress: false
+      inProgress: false,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     },
     {
       title: "HR Analytics Dashboard",
@@ -23,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
       tools: ["Excel", "Pivot Tables", "HR Metrics"],
       file: "files/hr_analytics_dashboard.xlsx",
       icon: "fa-users",
-      inProgress: false
+      inProgress: false,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     },
     {
       title: "Inventory Tracking Dashboard",
@@ -31,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
       tools: ["Excel", "COGS Analysis", "Inventory"],
       file: "files/inventory_tracker.xlsx",
       icon: "fa-warehouse",
-      inProgress: true
+      inProgress: true,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     },
     {
       title: "Financial Reporting Template",
@@ -39,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
       tools: ["Excel", "Financial Modeling", "Power Query"],
       file: "files/financial_reports.xlsx",
       icon: "fa-chart-pie",
-      inProgress: true
+      inProgress: true,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     },
     {
       title: "Expense Tracking & Budgeting",
@@ -47,15 +51,17 @@ document.addEventListener('DOMContentLoaded', function() {
       tools: ["Excel", "Budgeting", "Conditional Formatting"],
       file: "files/expense_tracker.xlsx",
       icon: "fa-wallet",
-      inProgress: true
+      inProgress: true,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     },
     {
-      title: "Yasser Ramadan Inventory Management App (اصناف ياسر رمضان)",
-      description: "A mobile business automation application developed using AppSheet to manage inventory and streamline the returns process. It categorizes returns into two main workflows: returns for maintenance and restoration to the customer, and actual finalized returns from customers. It features smart filtering, data tracking, and automated reporting.",
-      tools: ["AppSheet", "Google Sheets", "Google Apps Script"],
+      title: "Yasser Ramadan Inventory Management App",
+      description: "A mobile business automation application developed using AppSheet to manage inventory and streamline the returns process.",
+      tools: ["AppSheet", "Google Sheets", "Apps Script"],
       file: "https://www.appsheet.com/newshortcut/b3d9df53-8f3f-4b7d-acc2-07af1f7ec7c6",
       icon: "fa-mobile-alt",
-      inProgress: false
+      inProgress: false,
+      image: "Images/image.jpg" /* 👈 ضع صورة المشروع هنا */
     }
   ];
 
@@ -80,14 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
-  /* ════════════════════════════════════════════
-     GENERATE PROJECTS
-  ════════════════════════════════════════════
-  FIX 1: Added inProgress badge/overlay to card markup.
-  FIX 2: Used textContent-safe number formatting (String(idx+1).padStart(2,'0'))
-         to avoid template literal edge cases.
-  FIX 3: Added null-safe tool tag rendering (escape HTML entities to prevent XSS).
-  ════════════════════════════════════════════ */
   function escapeHtml(str) {
     if (typeof str !== 'string') return '';
     return str
@@ -98,6 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
       .replace(/'/g, '&#39;');
   }
 
+  /* ════════════════════════════════════════════
+     GENERATE PROJECTS (WITH 3D FLIP)
+  ════════════════════════════════════════════ */
   function generateProjects() {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
@@ -108,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     grid.innerHTML = projects.map((project, idx) => {
-      // Defensive: skip malformed entries
       if (!project || typeof project !== 'object') return '';
 
       const tagsHtml = Array.isArray(project.tools)
@@ -123,28 +123,44 @@ document.addEventListener('DOMContentLoaded', function() {
              <i class="fas fa-download"></i> Download
            </a>`;
 
-      // FIX 1: Show "In Progress" badge on inProgress cards
       const badgeHtml = project.inProgress
         ? `<div class="project-in-progress-badge">In Progress</div>`
         : '';
 
       const num = String(idx + 1).padStart(2, '0');
+      const bgImg = escapeHtml(project.image || 'Images/image.jpg');
 
       return `
         <div class="project-card fade-in" style="animation-delay:${idx * 0.1}s">
-          <div class="project-thumb">
-            ${badgeHtml}
-            <div class="project-thumb-icon"><i class="fas ${escapeHtml(project.icon || 'fa-file')}"></i></div>
-            <div class="project-thumb-num">${num}</div>
-          </div>
-          <div class="project-body">
-            <div class="project-tags">${tagsHtml}</div>
-            <h3 class="project-title">${escapeHtml(project.title || '')}</h3>
-            <p class="project-desc">${escapeHtml(project.description || '')}</p>
-            <div class="project-footer">
-              ${btnHtml}
-              <button class="btn-card btn-card-ghost"><i class="fas fa-arrow-right"></i></button>
+          <div class="project-card-inner">
+            
+            <!-- الوجه الأمامي للكارت -->
+            <div class="project-card-front">
+              <div class="project-thumb">
+                ${badgeHtml}
+                <div class="project-thumb-icon"><i class="fas ${escapeHtml(project.icon || 'fa-file')}"></i></div>
+                <div class="project-thumb-num">${num}</div>
+              </div>
+              <div class="project-body">
+                <div class="project-tags">${tagsHtml}</div>
+                <h3 class="project-title">${escapeHtml(project.title || '')}</h3>
+                <p class="project-desc">${escapeHtml(project.description || '')}</p>
+                <div class="project-footer">
+                  ${btnHtml}
+                  <button class="btn-card btn-card-ghost flip-btn"><i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
             </div>
+
+            <!-- الوجه الخلفي للكارت -->
+            <div class="project-card-back">
+              <img src="${bgImg}" alt="Project Preview" class="project-back-img">
+              <div class="project-back-overlay"></div>
+              <div class="project-back-content">
+                <button class="flip-back-btn"><i class="fas fa-undo"></i> Go Back</button>
+              </div>
+            </div>
+
           </div>
         </div>
       `;
@@ -158,16 +174,28 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // FIX 2: Observe newly generated fade-in elements AFTER they exist in the DOM
+    // 🎯 كود تشغيل القلب (Flip Events)
+    grid.querySelectorAll('.flip-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cardInner = e.target.closest('.project-card-inner');
+        if (cardInner) cardInner.classList.add('is-flipped');
+      });
+    });
+
+    grid.querySelectorAll('.flip-back-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cardInner = e.target.closest('.project-card-inner');
+        if (cardInner) cardInner.classList.remove('is-flipped');
+      });
+    });
+
     grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
   /* ════════════════════════════════════════════
      GENERATE VIDEOS
-  ════════════════════════════════════════════
-  FIX 3: Added loading="lazy" and allow attributes to iframes.
-  FIX 4: Observe newly generated video fade-in elements after DOM insertion.
-  FIX 5: Defensive check for empty videos array.
   ════════════════════════════════════════════ */
   function generateVideos() {
     const grid = document.getElementById('videosGrid');
@@ -199,7 +227,6 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     }).join('');
 
-    // FIX 4: Observe newly generated fade-in elements AFTER they exist in the DOM
     grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
@@ -299,13 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', updateActiveLink);
 
   /* ════════════════════════════════════════════
-     FADE IN ON SCROLL (IntersectionObserver)
-  ════════════════════════════════════════════
-  FIX 5: Observer is declared before generateProjects/generateVideos so it can
-         be referenced inside those functions when observing dynamically created
-         elements. The old code ran querySelectorAll('.fade-in') BEFORE the
-         project/video cards existed in the DOM — so zero elements were ever
-         observed and cards never became visible.
+     FADE IN ON SCROLL
   ════════════════════════════════════════════ */
   const observerOptions = {
     threshold: 0.1,
@@ -321,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  // Observe static fade-in elements (those already in the HTML)
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
   /* ════════════════════════════════════════════
@@ -346,9 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ════════════════════════════════════════════
      CONTACT FORM
-  ════════════════════════════════════════════
-  FIX 6: Added null-safety for all form field lookups so a missing field
-         doesn't crash the submit handler.
   ════════════════════════════════════════════ */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
@@ -360,7 +377,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const subjectEl = document.getElementById('subject');
       const messageEl = document.getElementById('message');
 
-      // Guard: if any required field element is missing, bail gracefully
       if (!nameEl || !emailEl || !subjectEl || !messageEl) {
         showToast('Form fields not found. Please refresh and try again.');
         return;
@@ -409,15 +425,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ════════════════════════════════════════════
      INITIALIZE
-  ════════════════════════════════════════════
-  FIX 7: generateProjects() and generateVideos() are called AFTER the observer
-         is set up, and each function now calls observer.observe() on its own
-         newly created elements internally — fixing the invisible cards bug.
   ════════════════════════════════════════════ */
   generateProjects();
   generateVideos();
-
-  console.log('%c👋 Welcome to Muhammed Hussein\'s Portfolio!', 'font-size: 18px; font-weight: bold; color: #2563eb;');
-  console.log('%cBuilt with modern web technologies - HTML, CSS & Vanilla JavaScript', 'font-size: 12px; color: #64748b;');
 
 });
