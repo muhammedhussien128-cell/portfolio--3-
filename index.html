@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,94 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="flip-animation.css">
+
+    <!-- Dark Mode CSS (You can move this to style.css) -->
+    <style>
+        .theme-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            margin-left: 15px;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .theme-btn:hover {
+            transform: scale(1.1);
+            color: #3b82f6;
+        }
+
+        /* Dark Mode Variables & Overrides */
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --bg-alt: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+        }
+
+        [data-theme="dark"] body {
+            background-color: var(--bg-color, #0f172a);
+            color: var(--text-primary, #f8fafc);
+        }
+
+        [data-theme="dark"] .navbar {
+            background-color: var(--nav-bg, rgba(15, 23, 42, 0.9));
+            border-bottom: 1px solid var(--border-color, #334155);
+        }
+
+        [data-theme="dark"] .section,
+        [data-theme="dark"] .hero {
+            background-color: var(--bg-color, #0f172a);
+            color: var(--text-primary, #f8fafc);
+        }
+
+        [data-theme="dark"] .about,
+        [data-theme="dark"] .skills,
+        [data-theme="dark"] .projects,
+        [data-theme="dark"] .contact,
+        [data-theme="dark"] .videos {
+            background-color: var(--bg-color, #0f172a);
+        }
+
+        [data-theme="dark"] .highlight-card,
+        [data-theme="dark"] .skill-card,
+        [data-theme="dark"] .contact-info,
+        [data-theme="dark"] .contact-form-container {
+            background-color: var(--card-bg, #1e293b);
+            border-color: var(--border-color, #334155);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] h1, 
+        [data-theme="dark"] h2, 
+        [data-theme="dark"] h3, 
+        [data-theme="dark"] a {
+            color: var(--text-primary, #ffffff);
+        }
+
+        [data-theme="dark"] p, 
+        [data-theme="dark"] span:not(.logo-icon, .btn span) {
+            color: var(--text-secondary, #94a3b8);
+        }
+
+        [data-theme="dark"] input,
+        [data-theme="dark"] textarea {
+            background-color: var(--bg-color, #0f172a);
+            color: var(--text-primary, #ffffff);
+            border-color: var(--border-color, #334155);
+        }
+
+        [data-theme="dark"] .footer {
+            background-color: var(--bg-alt, #1e293b);
+            border-top: 1px solid var(--border-color, #334155);
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -38,6 +126,12 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#videos" class="nav-link">Videos</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <!-- أضفت زر الوضع الليلي هنا -->
+                <li>
+                    <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
@@ -253,7 +347,7 @@
         </div>
     </section>
 
-    <!-- Video Projects Section - NEW -->
+    <!-- Video Projects Section -->
     <section class="videos section" id="videos">
         <div class="container">
             <div class="section-header">
@@ -389,5 +483,40 @@
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+
+    <!-- Dark Mode Script (You can move this to script.js) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            const icon = themeToggleBtn.querySelector('i');
+
+            // Check for saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+                updateIcon(savedTheme);
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateIcon(newTheme);
+            });
+
+            function updateIcon(theme) {
+                if (theme === 'dark') {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
