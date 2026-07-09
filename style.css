@@ -65,19 +65,19 @@
 }
 
 /* ============================================
-   DARK MODE VARIABLES
+   DARK MODE VARIABLES (PREMIUM NAVY)
    ============================================ */
 [data-theme="dark"] {
-    /* Adjusted Primary Colors for Dark Mode (Slightly brighter for contrast) */
+    /* Adjusted Primary Colors for Dark Mode */
     --primary: #3b82f6;
     --primary-light: #60a5fa;
-    --primary-lighter: rgba(59, 130, 246, 0.15);
+    --primary-lighter: rgba(59, 130, 246, 0.1);
     --primary-dark: #2563eb;
     
     /* Adjusted Accent Colors */
     --accent: #60a5fa;
     --accent-light: #93c5fd;
-    --accent-lighter: rgba(96, 165, 250, 0.15);
+    --accent-lighter: rgba(96, 165, 250, 0.1);
     
     /* Adjusted Success Colors */
     --success: #10b981;
@@ -88,47 +88,63 @@
     --text-light: #cbd5e1;
     --text-muted: #94a3b8;
     
-    /* Background Colors - Dark Shades */
-    --bg: #0f172a; /* Main Dark Background */
-    --bg-light: #1e293b; /* Section Dark Background */
-    --bg-lighter: #334155; /* Cards and Inputs */
-    --bg-gray: #475569;
+    /* Background Colors - Premium Deep Navy instead of Gray */
+    --bg: #040d21; /* Main Dark Background */
+    --bg-light: #0b1833; /* Section Background */
+    --bg-lighter: #152647; /* Cards and Inputs */
+    --bg-gray: #1e3159; /* Subtle highlights */
     
     /* Borders - Subtle Dark Borders */
-    --border: #334155;
-    --border-light: #475569;
+    --border: #1e3159;
+    --border-light: #2a4173;
     
     /* Shadows - Darker for depth */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
-    --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 6px 20px 0 rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 10px 30px 0 rgba(0, 0, 0, 0.7);
-    --shadow-xl: 0 20px 40px 0 rgba(0, 0, 0, 0.7);
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+    --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.7);
+    --shadow-md: 0 6px 20px 0 rgba(0, 0, 0, 0.8);
+    --shadow-lg: 0 10px 30px 0 rgba(0, 0, 0, 0.9);
+    --shadow-xl: 0 20px 40px 0 rgba(0, 0, 0, 0.9);
 }
 
 /* Dark Mode Specific Fixes */
 [data-theme="dark"] .navbar {
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(4, 13, 33, 0.85);
 }
 
 [data-theme="dark"] .navbar.scrolled {
-    background: rgba(15, 23, 42, 0.98);
+    background: rgba(4, 13, 33, 0.98);
 }
 
 [data-theme="dark"] .hero::before {
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
 }
 
 [data-theme="dark"] .hero::after {
-    background: radial-gradient(circle, rgba(96, 165, 250, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.05) 0%, transparent 70%);
 }
 
+/* 🎯 Fix the bright blue tops of cards in dark mode */
+[data-theme="dark"] .project-thumb,
+[data-theme="dark"] .video-wrapper {
+    background: linear-gradient(135deg, var(--bg-lighter), var(--bg-gray));
+}
+
+[data-theme="dark"] .project-thumb-num {
+    color: rgba(255, 255, 255, 0.05);
+}
+
+/* 🎯 Make card backgrounds richer */
 [data-theme="dark"] .highlight-card,
 [data-theme="dark"] .skill-card,
 [data-theme="dark"] .project-card,
 [data-theme="dark"] .video-card {
-    background: var(--bg-light); /* Make cards slightly lighter than body to pop out */
+    background: var(--bg-light); 
+}
+
+/* Footer Dark Mode */
+[data-theme="dark"] .footer {
+    background: #020713;
 }
 
 /* ============================================
