@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="project-card fade-in" style="animation-delay:${idx * 0.1}s">
           <div class="project-card-inner">
             
-            <!-- الوجه الأمامي للكارت -->
+            <!-- Front Card Face -->
             <div class="project-card-front">
               <div class="project-thumb">
                 ${badgeHtml}
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
             </div>
 
-            <!-- الوجه الخلفي للكارت -->
+            <!-- Back Card Face -->
             <div class="project-card-back">
               <img src="${bgImg}" alt="Project Preview" class="project-back-img">
               <div class="project-back-overlay"></div>
@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     }).join('');
 
-    // Handle coming soon clicks
     grid.querySelectorAll('[data-coming-soon="true"]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -174,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // 🎯 كود تشغيل القلب (Flip Events)
     grid.querySelectorAll('.flip-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -270,6 +268,195 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => toast.remove(), 300);
     }, 3000);
   }
+
+  /* ════════════════════════════════════════════
+     SCROLL PROGRESS BAR
+  ════════════════════════════════════════════ */
+  const progressBar = document.createElement('div');
+  progressBar.className = 'scroll-progress';
+  document.body.prepend(progressBar);
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    progressBar.style.width = scrolled + '%';
+  }, { passive: true });
+
+  /* ════════════════════════════════════════════
+     CUSTOM CURSOR
+  ════════════════════════════════════════════ */
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  if (dot && ring) {
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+    });
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button, .project-card, .skill-card, .highlight-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     PARTICLES BACKGROUND
+  ════════════════════════════════════════════ */
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+    function getAccentColor() {
+      const theme = document.documentElement.getAttribute('data-theme');
+      return theme === 'dark' ? '59,130,246' : '0,85,204';
+    }
+    function initParticles() {
+      particles = [];
+      const count = Math.floor((canvas.width * canvas.height) / 14000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.8 + 0.4,
+          dx: (Math.random() - 0.5) * 0.35,
+          dy: (Math.random() - 0.5) * 0.35,
+          opacity: Math.random() * 0.5 + 0.15
+        });
+      }
+    }
+    initParticles();
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const color = getAccentColor();
+      particles.forEach((p, i) => {
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, ${p.opacity})`;
+        ctx.fill();
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dist = Math.hypot(p.x - q.x, p.y - q.y);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(${color}, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+    const themeObserver = new MutationObserver(() => initParticles());
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
+  /* ════════════════════════════════════════════
+     TYPING EFFECT
+  ════════════════════════════════════════════ */
+  const typedEl = document.querySelector('.typed-text');
+  if (typedEl) {
+    const phrases = ['Junior Accountant', 'Data Analyst', 'Excel Specialist', 'Financial Expert'];
+    let phraseIdx = 0, charIdx = 0, deleting = false;
+    function type() {
+      const phrase = phrases[phraseIdx];
+      if (!deleting) {
+        typedEl.textContent = phrase.substring(0, ++charIdx);
+        if (charIdx === phrase.length) {
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+        setTimeout(type, 75);
+      } else {
+        typedEl.textContent = phrase.substring(0, --charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(type, 400);
+          return;
+        }
+        setTimeout(type, 40);
+      }
+    }
+    setTimeout(type, 1000);
+  }
+
+  /* ════════════════════════════════════════════
+     ANIMATED STAT NUMBER COUNTER
+  ════════════════════════════════════════════ */
+  function animateCounter(el, target, suffix) {
+    let current = 0;
+    const duration = 1800;
+    const stepTime = 22;
+    const step = Math.ceil(target / (duration / stepTime));
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + suffix;
+      if (current >= target) clearInterval(timer);
+    }, stepTime);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.stat-number').forEach(el => {
+          const target = parseInt(el.getAttribute('data-target') || '0');
+          const suffix = el.getAttribute('data-suffix') || '';
+          animateCounter(el, target, suffix);
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const statsContainer = document.querySelector('.hero-stats');
+  if (statsContainer) statsObserver.observe(statsContainer);
+
+  /* ════════════════════════════════════════════
+     3D CARD HOVER TILT
+     Applied after projects are generated dynamically
+  ════════════════════════════════════════════ */
+  function init3DTilt() {
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotX = ((y - cy) / cy) * -8;
+        const rotY = ((x - cx) / cx) * 8;
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+      });
+    });
+  }
+
+  // Hook into project generation to trigger 3D Tilt setup
+  const originalGenProjects = generateProjects;
+  generateProjects = function() {
+    originalGenProjects();
+    init3DTilt();
+  };
 
   /* ════════════════════════════════════════════
      NAVBAR FUNCTIONALITY
