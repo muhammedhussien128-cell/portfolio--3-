@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-in, .reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
   /* ════════════════════════════════════════════
      SMOOTH SCROLL
