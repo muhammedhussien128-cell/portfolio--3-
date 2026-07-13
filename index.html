@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="flip-animation.css">
 
-    <!-- Dark Mode CSS (You can move this to style.css) -->
+    <!-- Dark Mode CSS -->
     <style>
         .theme-btn {
             background: none;
@@ -51,6 +51,7 @@
             --card-bg: #152647; /* Navy Cards & Inputs */
             --border-color: #1e3159; /* Navy Borders */
             --nav-bg: rgba(4, 13, 33, 0.9);
+            --cursor-color: #3b82f6;
         }
 
         [data-theme="dark"] body {
@@ -110,6 +111,13 @@
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -124,7 +132,7 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#videos" class="nav-link">Videos</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
-                <!-- أضفت زر الوضع الليلي هنا -->
+                <!-- الوضع الليلي -->
                 <li>
                     <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
                         <i class="fas fa-moon"></i>
@@ -152,9 +160,9 @@
                     <span>Welcome to my portfolio</span>
                 </div>
                 <h1 class="hero-name">Muhammed Hussein</h1>
-                <p class="hero-title">Junior Accountant & Data Analyst</p>
+                <h2 class="hero-role">I'm a <span class="typed-text"></span><span class="typed-cursor">|</span></h2>
                 <p class="hero-summary">
-                    I transform financial data into actionable insights. With expertise in Excel, financial reporting, and data analysis, I help businesses make smarter decisions through accurate,[...]
+                    I transform financial data into actionable insights. With expertise in Excel, financial reporting, and data analysis, I help businesses make smarter decisions through accurate, data-driven strategies.
                 </p>
                 <div class="hero-cta">
                     <a href="files/Muhammed_Hussein_CV.pdf" download class="btn btn-primary btn-lg">
@@ -168,15 +176,15 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-number">1+</div>
+                        <div class="stat-number" data-target="1" data-suffix="+">0+</div>
                         <div class="stat-label">Years of Experience</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">6</div>
+                        <div class="stat-number" data-target="6" data-suffix="">0</div>
                         <div class="stat-label">Projects Completed</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">100%</div>
+                        <div class="stat-number" data-target="100" data-suffix="%">0%</div>
                         <div class="stat-label">Client Satisfaction</div>
                     </div>
                 </div>
@@ -197,21 +205,21 @@
     <!-- About Section -->
     <section class="about section" id="about">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">About</span>
                 <h2 class="section-title">Professional Profile</h2>
                 <p class="section-subtitle">Bringing expertise in financial analysis and data-driven decision making</p>
             </div>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text reveal-left">
                     <p>
-                        I am a detail-oriented Junior Accountant with a strong foundation in financial reporting, accounts payable & receivable, and data-driven decision making. With hands-on exp[...]
+                        I am a detail-oriented Junior Accountant with a strong foundation in financial reporting, accounts payable & receivable, and data-driven decision making. With hands-on experience in managing general ledger entries, performing bank reconciliations, and auditing transaction records, I ensure the accuracy and integrity of financial information.
                     </p>
                     <p>
-                        My passion lies at the intersection of accounting and technology. I leverage advanced Excel skills — including Pivot Tables, VLOOKUP/XLOOKUP, Power Query, and interactiv[...]
+                        My passion lies at the intersection of accounting and technology. I leverage advanced Excel skills — including Pivot Tables, VLOOKUP/XLOOKUP, Power Query, and interactive dashboard modeling — alongside database design methodologies and analytical thinking to translate complex ledger activities into clear, executive-ready insights.
                     </p>
                 </div>
-                <div class="about-highlights">
+                <div class="about-highlights reveal-right">
                     <div class="highlight-card">
                         <div class="highlight-icon">
                             <i class="fas fa-graduation-cap"></i>
@@ -256,13 +264,13 @@
     <!-- Skills Section -->
     <section class="skills section" id="skills">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">Expertise</span>
                 <h2 class="section-title">Core Competencies</h2>
                 <p class="section-subtitle">Skills and tools I use to deliver exceptional results</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-card">
+                <div class="skill-card reveal">
                     <div class="skill-header">
                         <div class="skill-icon">
                             <i class="fas fa-calculator"></i>
@@ -279,7 +287,7 @@
                     </ul>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card reveal">
                     <div class="skill-header">
                         <div class="skill-icon">
                             <i class="fas fa-chart-line"></i>
@@ -296,7 +304,7 @@
                     </ul>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card reveal">
                     <div class="skill-header">
                         <div class="skill-icon">
                             <i class="fas fa-laptop-code"></i>
@@ -313,7 +321,7 @@
                     </ul>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card reveal">
                     <div class="skill-header">
                         <div class="skill-icon">
                             <i class="fas fa-users"></i>
@@ -336,7 +344,7 @@
     <!-- Projects Section -->
     <section class="projects section" id="projects">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">Portfolio</span>
                 <h2 class="section-title">Featured Projects</h2>
                 <p class="section-subtitle">Data-driven solutions I've built to solve real business challenges</p>
@@ -348,7 +356,7 @@
     <!-- Video Projects Section -->
     <section class="videos section" id="videos">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">Demonstrations</span>
                 <h2 class="section-title">Video Projects</h2>
                 <p class="section-subtitle">See my projects in action with detailed walkthroughs and live demonstrations</p>
@@ -360,13 +368,13 @@
     <!-- Contact Section -->
     <section class="contact section" id="contact">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">Get In Touch</span>
                 <h2 class="section-title">Let's Connect</h2>
                 <p class="section-subtitle">Open to new opportunities and collaboration</p>
             </div>
             <div class="contact-grid">
-                <div class="contact-info">
+                <div class="contact-info reveal-left">
                     <h3>Contact Information</h3>
                     <p>
                         I'm actively looking for opportunities to apply my accounting and data analysis expertise. Feel free to reach out with any questions or collaboration opportunities.
@@ -410,7 +418,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form-container">
+                <div class="contact-form-container reveal-right">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="name">Your Name</label>
@@ -482,7 +490,7 @@
     <!-- JavaScript -->
     <script src="script.js"></script>
 
-    <!-- Dark Mode Script (You can move this to script.js) -->
+    <!-- Dark Mode Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggleBtn = document.getElementById('theme-toggle');
